@@ -1,6 +1,5 @@
 const Header = ({ name }) => <h1>{name}</h1>
 
-
 const Content = ({ parts }) => {
   return (
   <div>
