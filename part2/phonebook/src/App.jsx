@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Filter from './components/Filter'
+import Persons from './components/Persons.jsx'
+import PersonForm from './components/PersonForm.jsx'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -16,8 +19,10 @@ const App = () => {
     console.log('button clicked', event.target)
     const personObject = {
       name: newName,
-      number: newNumber
+      number: newNumber,
+      id: persons.length + 1
     }
+
     if (persons.some(person => person.name === newName) || persons.some(person => person.number === newNumber) ) {
       window.alert(`${newName} or ${newNumber} is already in the phonebook`)
     } else {
@@ -48,19 +53,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>Search:<input value = {filteredName} onChange={handleFilterChange}></input></div>
-      <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div>name: <input value={newName} onChange={handleNameChange} /></div>
-        <div>number: <input value={newNumber} onChange={handleNumberChange} /></div>
-        <div><button type="submit">add</button></div>
-      </form>
+      <Filter filteredName = {filteredName} handleFilterChange={handleFilterChange} />
+      <h2>Add a new</h2>
+      <PersonForm addName={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <ul>{persons.map(person => <li key={person.id}>{person.name} {person.number}</li>)}</ul>
-      <h2>Filtered numbers</h2>
-      <ul>{filteredList.map(person => <li key={person.id}>{person.name} {person.number}</li>)}</ul>
-      <div>debug: {newName}</div>
-      ...
+      <Persons filteredList={filteredList}/>
     </div>
   )
 }
