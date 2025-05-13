@@ -1,3 +1,3 @@
-const Filter = ({ filteredName, handleFilterChange }) => <div>Search:<input value = {filteredName} onChange={handleFilterChange} /></div>
+const Filter = ({ filteredName, handleFilterChange }) => <div>Search:<input name = 'search' value = {filteredName} onChange={handleFilterChange} /></div>
 
 export default Filter
