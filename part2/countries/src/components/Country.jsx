@@ -1,3 +1,5 @@
+import Weather from './Weather'
+
 const Country = ({ country }) => {
     return (    
         <>  
@@ -7,6 +9,8 @@ const Country = ({ country }) => {
         <h2>Languages</h2>
         <p>{(Object.values(country.languages).map((language,index) => <li key = {index}>{language}</li>))}</p>
         <p><img src = {country.flags.png} alt = {country.flags.src}></img></p>
+        <h2>Weather in {country.capital[0]}</h2>
+        <Weather lat = {country.latlng[0]} lon = {country.latlng[1]} />
         </>
     )
 }
