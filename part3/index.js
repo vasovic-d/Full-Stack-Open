@@ -62,8 +62,6 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
-const generateID = () => String(Math.floor(Math.random() * 12000))
-
 app.post('/api/persons', (request, response) => {
     const body = request.body
     const existingPerson = persons.find(person => person.name === body.name)
@@ -75,7 +73,6 @@ app.post('/api/persons', (request, response) => {
     }
 
     const person =  new Person ({
-        id: generateID(),
         name: body.name,
         number: body.number
     })
