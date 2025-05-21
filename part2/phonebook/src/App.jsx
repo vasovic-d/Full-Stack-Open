@@ -47,7 +47,7 @@ const App = () => {
             setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person))
             setNewName('')
             setNewNumber('')
-            setNotification(`Number of ${returnedPerson.name} was changed successfully`)
+            setNotification({message: `Number of ${returnedPerson.name} was changed successfully`, type: 'success'})
             setTimeout(() => {setNotification({message: null, type: null})}, 5000)
           })
           .catch(error => {
