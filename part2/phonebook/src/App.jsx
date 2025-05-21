@@ -87,7 +87,6 @@ const App = () => {
     }
   }
   
-
   const filteredList = filteredName === '' ? persons : persons.filter(person => person.name.toLowerCase().includes(filteredName.toLowerCase()))
 
   const handleNameChange = (event) => {
