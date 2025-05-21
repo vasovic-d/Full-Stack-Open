@@ -51,11 +51,17 @@ const App = () => {
             setTimeout(() => {setNotification({message: null, type: null})}, 5000)
           })
           .catch(error => {
-          setNotification({message: `Seems ${existingPerson.name} was already deleted from server`, type: 'error'})
-          setTimeout(() => {setNotification({message: null, type: null})}, 5000)
-          console.error(`Failed to delete ${existingPerson.name}:`, error)
-          setPersons(persons.filter(p => p.id !== existingPerson.id))
-        })
+            if(error.response && error.response.status === 404) {
+              setNotification({message: `Seems ${existingPerson.name} was already deleted from server`, type: 'error'})
+              setTimeout(() => {setNotification({message: null, type: null})}, 5000)
+              console.error(`Failed to delete ${existingPerson.name}:`, error)
+              setPersons(persons.filter(p => p.id !== existingPerson.id))
+            } else if (error.response && error.response.status === 400){
+              console.log(error.response.data.error)
+              setNotification({message: `${error.response.data.error}`, type: 'error'})
+              setTimeout(() => {setNotification({message: null, type: null})}, 5000)
+            }
+          })
       }
     } else {
       personService
@@ -66,6 +72,11 @@ const App = () => {
           setNewNumber('')
           setNotification({message: `${returnedPerson.name} was added successfully`, type: 'success'})
           setTimeout(() => {setNotification({message: null, type: null})}, 5000)
+        })
+        .catch(error => {
+          console.log(error.response.data.error)
+          setNotification({message:`${error.response.data.error}`, type: 'error'})
+          setTimeout(() => {setNotification({message: null, type: null})}, 5000)  
         })
      }
   }
