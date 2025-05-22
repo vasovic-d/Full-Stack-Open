@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+    "title": "amburator",
+    "author": "jovo jaric",
+    "url": "blogpost.com",
+    "likes": 3
+}
