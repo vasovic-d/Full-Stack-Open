@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "title": "amburator",
-    "author": "jovo jaric",
+    "title": "kisela vodica",
+    "author": "zorz cvarkonen",
     "url": "blogpost.com",
-    "likes": 3
+    "likes": 650
 }
