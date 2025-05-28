@@ -1,9 +1,8 @@
 POST http://localhost:3003/api/blogs
 content-type: application/json
 
-{
-    "title": "kisela vodica",
+{   
+    "title": "Exploring the Depths of RESTful APIs",
     "author": "zorz cvarkonen",
-    "url": "blogpost.com",
-    "likes": 650
+    "url": "https://zorzcvarkonen.com"
 }
