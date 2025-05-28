@@ -51,7 +51,7 @@ test('a valid blog can be added', async () => {
 })
 
 test('if likes is missing, it defaults to 0', async () => {
-  const newBlog = {
+  const blogNoLikes = {
     title: 'Blog Without Likes',
     author: 'Petar Mudic',
     url: 'https://example.io/blog-without-likes',
@@ -59,16 +59,43 @@ test('if likes is missing, it defaults to 0', async () => {
 
   await api
     .post('/api/blogs')
-    .send(newBlog)
+    .send(blogNoLikes)
     .expect(201)
     .expect('Content-Type', /application\/json/)
 
   const blogsAtEnd = await helper.blogsInDb()
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
 
-  const addedBlog = blogsAtEnd.find(blog => blog.title === newBlog.title)
+  const addedBlog = blogsAtEnd.find(blog => blog.title === blogNoLikes.title)
   assert.ok(addedBlog)
   assert.strictEqual(addedBlog.likes, 0)
+})
+
+test('blog without title and/or url is not added', async () => {
+  const blogWithoutTitle = {
+    author: 'Author Without Title',
+    url: 'https://notitle.com/no-title',
+    likes: 5,
+  }
+
+  const blogWithoutUrl = {
+    title: 'Blog Without URL',
+    author: 'Author Authorovich',
+    likes: 2,
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(blogWithoutTitle)
+    .expect(400)
+
+  await api
+    .post('/api/blogs')
+    .send(blogWithoutUrl)
+    .expect(400)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
 })
 
 after(async () => {

@@ -2,7 +2,5 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {   
-    "title": "Exploring the Depths of RESTful APIs",
-    "author": "zorz cvarkonen",
-    "url": "https://zorzcvarkonen.com"
+    "author": "zorz cvarkonen"
 }
