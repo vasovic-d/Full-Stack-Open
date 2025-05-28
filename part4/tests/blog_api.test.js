@@ -50,6 +50,27 @@ test('a valid blog can be added', async () => {
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
 })
 
+test('if likes is missing, it defaults to 0', async () => {
+  const newBlog = {
+    title: 'Blog Without Likes',
+    author: 'Petar Mudic',
+    url: 'https://example.io/blog-without-likes',
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+
+  const addedBlog = blogsAtEnd.find(blog => blog.title === newBlog.title)
+  assert.ok(addedBlog)
+  assert.strictEqual(addedBlog.likes, 0)
+})
+
 after(async () => {
   await mongoose.connection.close()
   console.log('Test database connection closed')
